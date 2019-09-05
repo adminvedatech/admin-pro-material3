@@ -1,0 +1,84 @@
+<mat-toolbar>
+    <span>{{bankformService.form.controls['id'].value?"Modificar Cuenta Bancaria":"Crear Cuenta Bancaria"}}</span>
+    <span class="fill-remaining-space"></span>
+    <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabIndex="-1"><mat-icon>clear</mat-icon></button>
+</mat-toolbar>
+<form [formGroup]="bankformService.form" class="normal-form" (submit)="onSubmitMat()">
+    <mat-grid-list cols="2" rowHeight="300px">
+        <mat-grid-tile>
+            <div class="controles-container">
+                <input type="hidden" formControlName="id">
+
+                <mat-form-field>
+                    <input matInput formControlName="nameBank" placeholder="Nombre del Cliente*">
+                    <mat-error>This field is mandatory.</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <input formControlName="accountNumber" matInput placeholder="No de Sucursal">
+                    <mat-error>Este campo es requerido.</mat-error>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <input formControlName="balance" matInput placeholder="Balance">
+                </mat-form-field>
+                <mat-form-field>
+                    <input formControlName="balanceToday" matInput placeholder="Budget">
+                </mat-form-field>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <div class="controles-container">
+                <!-- <div class="add-bottom-padding">
+                        <mat-radio-group formControlName="gender">
+                            <mat-radio-button value="1">Male</mat-radio-button>
+                            <mat-radio-button value="2">Female</mat-radio-button>
+                            <mat-radio-button value="3">Other</mat-radio-button>
+                        </mat-radio-group>
+                    </div> -->
+                <!-- <mat-form-field>
+                    <input formControlName="subAccount" [dropSpecialCharacters]="false" mask="000-00-00" matInput placeholder="Cuenta">
+                    <mat-error>Este campo es requerido.</mat-error>
+                </mat-form-field> -->
+
+                <!-- <mat-form-field>
+                        <mat-select formControlName="subAccount" placeholder="SubAccount">
+                            <mat-option>None</mat-option>
+                            <ng-container *ngFor="let acc of accounting">
+                                <mat-option value="{{acc.id}}">{{acc.name}}-{{acc.account}}</mat-option>
+                            </ng-container>
+                        </mat-select>
+                    </mat-form-field> -->
+
+                <!-- List and Sub list -->
+                <!-- <mat-form-field>
+                        <mat-select formControlName="department" placeholder="Department">
+                            <mat-option>None</mat-option>
+                            <ng-container *ngFor="let department of departmentService.array">
+                                <mat-option value="{{department.$key}}">{{department.code}}-{{department.name}}</mat-option>
+                            </ng-container>
+                        </mat-select>
+                    </mat-form-field> -->
+                <!-- <mat-form-field>
+                        <input formControlName="hireDate" matInput [matDatepicker]="picker" placeholder="Hire Date">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field> -->
+                <!-- Autocomplete -->
+                <mat-form-field>
+                    <input type="text" (click)="cargardatos()" (focus)="filterBank()" matInput formControlName="subAccount" [matAutocomplete]="auto">
+                    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">{{option.nameAccount}}-{{option.accountNumber}}</mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+
+                <div class="add-bottom-padding">
+                    <mat-checkbox formControlName="status">Contabilizar</mat-checkbox>
+                </div>
+                <div class="button-row">
+                    <button mat-raised-button color="primary" type="submit" [disabled]="bankformService.form.invalid">Submit</button>
+                    <button mat-raised-button color="warn" (click)="onClear()">Clear</button>
+                </div>
+            </div>
+        </mat-grid-tile>
+    </mat-grid-list>
+</form>

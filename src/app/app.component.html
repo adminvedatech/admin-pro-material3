@@ -1,0 +1,178 @@
+<mat-toolbar id="mainToolbar" color="primary">
+    <mat-icon (click)="onToolbarMenuToggle()" id="toolbarMenu">subject</mat-icon>
+    My Awesome App
+    <span class="toolbar-spacer"></span>
+    <mat-icon class="toolbar-icon" matBadge="8" matBadgePosition="after" matBadgeColor="accent">notifications</mat-icon>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item>
+        <mat-icon>publish</mat-icon>
+        <mat-icon>Share</mat-icon>
+      </button>
+        <button mat-menu-item disabled>
+        <mat-icon>mode_comment</mat-icon>
+        <span>Comment</span>
+      </button>
+        <button mat-menu-item>
+          <mat-icon>delete</mat-icon>
+          <span>Delete</span>
+        </button>
+    </mat-menu>
+</mat-toolbar>
+
+<mat-sidenav-container id="sidenavContainer" fullscreen>
+    <mat-sidenav mode="side" #sidenav id="sidenav" [class.menu-open]="isMenuOpen" [class.menu-close]="!isMenuOpen" opened>
+
+        <mat-list id="menus">
+            <mat-card>
+                <mat-card-header>
+                    <div mat-card-avatar class="avatar"></div>
+
+                    <mat-card-title>John Doe</mat-card-title>
+                    <mat-card-subtitle>Internal</mat-card-subtitle>
+                </mat-card-header>
+            </mat-card>
+            <mat-list-item>
+                <button class="menu-item" mat-flat-button [matMenuTriggerFor]="menu">
+        <mat-icon>dashboard</mat-icon>
+      Dashboard</button>
+            </mat-list-item>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item [routerLink]="['./customer/new']" routerLinkActive="active">
+                  <mat-icon>dialpad</mat-icon>
+                  <span>Redial</span>
+                </button>
+                <button mat-menu-item disabled>
+                  <mat-icon>voicemail</mat-icon>
+                  <span>Check voice mail</span>
+                </button>
+                <button mat-menu-item [routerLink]="['./customer']" routerLinkActive="active">
+                  <mat-icon>notifications_off</mat-icon>
+                  <span>Disable alerts</span>
+                </button>
+            </mat-menu>
+
+            <mat-list-item>
+                <button class="menu-item" mat-flat-button [matMenuTriggerFor]="account">
+          <mat-icon>account_balance</mat-icon>
+        Cuentas Contables</button>
+            </mat-list-item>
+
+            <mat-menu #account="matMenu">
+                <button mat-menu-item [routerLink]="['./account/list']" routerLinkActive="active">
+                  <mat-icon>view_list</mat-icon>
+                  <span>Lista de Cuentas</span>
+                </button>
+                <button mat-menu-item disabled>
+                  <mat-icon>voicemail</mat-icon>
+                  <span>Check voice mail</span>
+                </button>
+                <button mat-menu-item [routerLink]="['./customer']" routerLinkActive="active">
+                  <mat-icon>notifications_off</mat-icon>
+                  <span>Disable alerts</span>
+                </button>
+            </mat-menu>
+
+
+
+
+            <mat-list-item>
+                <button class="menu-item" mat-flat-button [matMenuTriggerFor]="banks">
+          <mat-icon>attach_money</mat-icon>
+        Cuentas de Bancos</button>
+            </mat-list-item>
+            <mat-menu #banks="matMenu">
+                <button mat-menu-item [routerLink]="['./bank']" routerLinkActive="active">
+                  <mat-icon>view_list</mat-icon>
+                  <span>Cuentas Bancarias</span>
+                </button>
+                <button mat-menu-item [routerLink]="['./bank/transaction']" routerLinkActive="active">
+                  <mat-icon>group</mat-icon>
+                  <span>Movimientos</span>
+                </button>
+                <button mat-menu-item disabled [routerLink]="['./bank/info']" routerLinkActive="active">
+                  <mat-icon>notifications_off</mat-icon>
+                  <span>Disable alerts</span>
+                </button>
+            </mat-menu>
+
+
+
+            <mat-list-item>
+                <button class="menu-item" mat-flat-button [matMenuTriggerFor]="supplier">
+          <mat-icon>local_shipping</mat-icon>
+        Proveedores</button>
+            </mat-list-item>
+
+            <mat-menu #supplier="matMenu">
+                <button mat-menu-item [routerLink]="['./supplier/invoice']" routerLinkActive="active">
+                <mat-icon>view_list</mat-icon>
+                <span>Listado de Facturas</span>
+              </button>
+                <button mat-menu-item [routerLink]="['./supplier']" routerLinkActive="active">
+                <mat-icon>group</mat-icon>
+                <span>Cartera de Proveedores</span>
+              </button>
+                <button mat-menu-item disabled [routerLink]="['./customer']" routerLinkActive="active">
+                <mat-icon>notifications_off</mat-icon>
+                <span>Disable alerts</span>
+              </button>
+            </mat-menu>
+
+
+            <mat-list-item>
+                <button class="menu-item" mat-flat-button [matMenuTriggerFor]="customer">
+          <mat-icon>contacts</mat-icon>
+        Clientes</button>
+            </mat-list-item>
+
+            <mat-menu #customer="matMenu">
+                <button mat-menu-item [routerLink]="['./customer/invoice']" routerLinkActive="active">
+                  <mat-icon>view_list</mat-icon>
+                  <span>Facturas</span>
+                </button>
+                <button mat-menu-item [routerLink]="['./customer']" routerLinkActive="active">
+                  <mat-icon>group</mat-icon>
+                  <span>Clientes</span>
+                </button>
+                <button mat-menu-item disabled [routerLink]="['./customer']" routerLinkActive="active">
+                  <mat-icon>notifications_off</mat-icon>
+                  <span>Disable alerts</span>
+                </button>
+            </mat-menu>
+
+
+
+            <mat-list-item>
+                <button class="menu-item" mat-flat-button [routerLink]="['./reports']" routerLinkActive="active">
+                <mat-icon>input</mat-icon>
+                Reportes
+              </button>
+            </mat-list-item>
+
+            <mat-list-item>
+                <button class="menu-item" mat-flat-button>
+            <mat-icon>settings_application</mat-icon>
+          Settings</button>
+            </mat-list-item>
+
+            <mat-list-item>
+                <button class="menu-item" mat-flat-button>
+            <mat-icon>show_chart</mat-icon>
+            Reportes
+          </button>
+            </mat-list-item>
+
+
+        </mat-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content [ngStyle]="{ 'margin-left.px': contentMargin }">
+
+        <router-outlet></router-outlet>
+
+    </mat-sidenav-content>
+
+</mat-sidenav-container>

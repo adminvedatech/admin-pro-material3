@@ -1,0 +1,19 @@
+<mat-card>
+    <mat-card-title>Login </mat-card-title>
+    <mat-card-subtitle>Authentication</mat-card-subtitle>
+    <form [formGroup]="loginForm">
+        <mat-form-field class="example-full-width">
+            <input matInput type="text" formControlName="username" name="username" placeholder="Usuario">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+            <input matInput type="password" name="password" formControlName="password" placeholder="Password">
+        </mat-form-field>
+    </form>
+    <mat-divider></mat-divider>
+    <mat-card-footer>
+        <mat-checkbox class="check-box">Recordar</mat-checkbox>
+
+        <button (click)="login()" class="button-flat" mat-flat-button color="primary">Login</button>
+    </mat-card-footer>
+</mat-card>

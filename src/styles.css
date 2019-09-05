@@ -1,0 +1,209 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+body {
+    font-family: Roboto, Arial, sans-serif;
+    padding: 0;
+    margin: 0;
+}
+
+#toolbarMenu {
+    cursor: pointer;
+    margin-right: 20px;
+}
+
+#mainToolbar .toolbar-spacer {
+    flex: 1 1 auto;
+}
+
+#mainToolbar .toolbar-icon {
+    cursor: pointer;
+    margin: 0 8px;
+}
+
+#sidenavContainer {
+    margin-top: 64px;
+}
+
+#sidenav {
+    width: 240px;
+}
+
+#sidenav.menu-close {
+    width: 70px
+}
+
+#sidenav.menu-open {
+    width: 240px
+}
+
+#sidenav .avatar {
+    background-image: url('http://i.pravatar.cc/300');
+    background-size: cover;
+}
+
+#sidenav .mat-list-item-content {
+    padding: 0;
+}
+
+#sidenav .menu-item {
+    width: 100%;
+    border-radius: 0;
+    text-align: left;
+    padding: 10px;
+}
+
+#sidenav .menu-item:hover {
+    background: #eee;
+}
+
+#sidenav .menu-item mat-icon {
+    margin-right: 20px;
+    margin-left: 12px;
+}
+
+.dash-list h3 {
+    padding: 12px;
+}
+
+.hide {
+    display: none;
+}
+
+form.normal-form {
+    margin: 10px;
+}
+
+.controles-container {
+    width: 100%;
+    padding: 5%;
+}
+
+.controles-container>* {
+    width: 100%;
+}
+
+.add-bottom-padding {
+    padding-bottom: 10px;
+}
+
+
+/* mat-table */
+
+mat-footer-row mat-footer-cell {
+    justify-content: center;
+    font-style: italic;
+}
+
+
+/* notification */
+
+snack-bar-container.success {
+    background-color: #5cb85c;
+    color: #fff;
+}
+
+snack-bar-container.warn {
+    background-color: #ed6d0b;
+}
+
+snack-bar-container.fail {
+    background-color: #ed0b0b;
+}
+
+snack-bar-container.notification simple-snack-bar {
+    font-size: 18px !important;
+    /* font-weight: bold; */
+}
+
+
+/* for dialog pop-up */
+
+.btn-dialog-close {
+    margin-left: auto;
+    width: 35px;
+    min-width: 0px !important;
+    height: 40px;
+    padding: 0px !important;
+}
+
+mat-toolbar {
+    padding: 30px;
+    background-color: darkslategray
+}
+
+
+/* For desktop: */
+
+.col-1 {
+    width: 8.33%;
+}
+
+.col-2 {
+    width: 16.66%;
+}
+
+.col-3 {
+    width: 25%;
+}
+
+.col-4 {
+    width: 33.33%;
+}
+
+.col-5 {
+    width: 41.66%;
+}
+
+.col-6 {
+    width: 50%;
+}
+
+.col-7 {
+    width: 58.33%;
+}
+
+.col-8 {
+    width: 66.66%;
+}
+
+.col-9 {
+    width: 75%;
+}
+
+.col-10 {
+    width: 83.33%;
+}
+
+.col-11 {
+    width: 91.66%;
+}
+
+.col-12 {
+    width: 100%;
+}
+
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    [class*="col-"] {
+        width: 100%;
+    }
+}
+
+.grid-container {
+    display: grid;
+}
+
+.grid-container {
+    display: inline-grid;
+}

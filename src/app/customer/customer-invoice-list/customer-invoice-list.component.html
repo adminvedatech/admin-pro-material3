@@ -1,0 +1,104 @@
+<mat-card>
+    <mat-card-header>
+    </mat-card-header>
+    <mat-grid-list cols="2" rowHeight="100px">
+        <mat-grid-tile [colspan]="1" [rowspan]="1">
+            <h4 class="card-title text-center">Cargar Factura de Venta en formato XML</h4>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="1">
+            <input #fileInput style="display: none" type="file" (change)="onFileSelected($event)">
+            <div class="example-button-row">
+                <button mat-stroked-button (click)="fileInput.click()" class="btn btn-sm btn-info">Seleccione un Archivo</button>
+                <span class="text-file-name">{{ name }} </span>
+                <button mat-stroked-button (click)="onUploadTxtFile()" class="btn btn-sm btn-info">Enviar Archivo al Servidor</button>
+                <button mat-stroked-button (click)="cancelFile()"><mat-icon>cancel</mat-icon> Cancelar</button>
+                <div *ngIf="currentFileUpload" class="progress">
+                    <!-- <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" attr.aria-valuenow="{{progress.percentage}}" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width:progress.percentage+'%'}"> -->
+                    <!-- {{progress.percentage}}%</div> -->
+                    <mat-progress-bar mode="determinate" value="{{progress.percentage}}"></mat-progress-bar>
+                </div>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="1">
+
+            <div class="col-sm-6">
+                <h3>Venta Acumulada <span class="badge badge-secondary">{{total | currency}}</span></h3>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="1">
+            <div style="display: block;">
+                <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
+                      </canvas>
+            </div>
+
+        </mat-grid-tile>
+
+    </mat-grid-list>
+
+
+    <div class="search-div">
+        <mat-form-field class="search-form-field" floatLabel="never">
+            <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()">
+            <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
+  <mat-icon>close</mat-icon></button>
+        </mat-form-field>
+    </div>
+
+
+    <div class="mat-elevation-z8">
+        <mat-table [dataSource]="listData" matSort>
+            <ng-container matColumnDef="folio">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Folio</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.folio}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="cliente">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Cliente</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.customerName}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="sucursal">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>No Tienda</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.storeNum}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="fecha">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.fecha | date: 'dd/MM/yyyy'}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="fechaPago">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha de Pago</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.fechaPago | date: 'dd/MM/yyyy'}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="Pago">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Pago</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.pago}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="Total">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Total</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.total | currency}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="Acciones">
+                <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                    <button class="btn btn-xs btn-rounded btn-primary">ver detalle</button>
+                    <button mat-icon-button><mat-icon>launch</mat-icon></button>
+                    <!-- <button mat-icon-button color="warn"><mat-icon>delete_outline</mat-icon></button> -->
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="loading">
+                <mat-footer-cell *matFooterCellDef colspan="5">hello</mat-footer-cell>
+                <mat-footer-cell *matFooterCellDef colspan="6">
+                    Loading data...
+                </mat-footer-cell>
+            </ng-container>
+            <ng-container matColumnDef="noData">
+                <mat-footer-cell *matFooterCellDef colspan="6">
+                    No data.
+                </mat-footer-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':listData!=null}"></mat-footer-row>
+            <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(listData!=null && listData.length==0)}"></mat-footer-row>
+        </mat-table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="25" showFirstLastButtons></mat-paginator>
+    </div>
+</mat-card>

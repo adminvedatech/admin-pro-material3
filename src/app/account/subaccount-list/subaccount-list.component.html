@@ -1,0 +1,77 @@
+<mat-card class="subacc-card">
+    <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>Cuanta Contable : {{accountType.name}} </mat-card-title>
+        <mat-card-subtitle>{{accountType.account}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <p>
+            The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan. A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally bred for hunting.
+        </p>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-button (click)="onCreate()">AGREGAR SUBCUENTA</button>
+        <button mat-button>CANCELAR</button>
+    </mat-card-actions>
+</mat-card>
+
+
+
+
+<mat-card>
+    <div class="search-div">
+        <mat-form-field class="search-form-field" floatLabel="never">
+            <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()">
+            <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
+    <mat-icon>close</mat-icon></button>
+        </mat-form-field>
+    </div>
+
+    <div class="mat-elevation-z8">
+        <mat-table [dataSource]="listData" matSort>
+            <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.id}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="nameAccount">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.nameAccount}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="accountNumber">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Cuenta</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.accountNumber}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="balance">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Balance</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.balance | currency}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="status">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Estado</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.status}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="Acciones">
+                <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <button mat-button color="primary">ver detalle</button>
+                    <button mat-icon-button (click)="onEdit(element)"><mat-icon>launch</mat-icon></button>
+                    <!-- <button mat-icon-button color="warn"><mat-icon>delete_outline</mat-icon></button> -->
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="loading">
+                <mat-footer-cell *matFooterCellDef colspan="6">
+                    Loading data...
+                </mat-footer-cell>
+            </ng-container>
+            <ng-container matColumnDef="noData">
+                <mat-footer-cell *matFooterCellDef colspan="6">
+                    No data.
+                </mat-footer-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':listData!=null}"></mat-footer-row>
+            <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(listData!=null && listData.data.length==0)}"></mat-footer-row>
+        </mat-table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="25" showFirstLastButtons></mat-paginator>
+    </div>
+</mat-card>

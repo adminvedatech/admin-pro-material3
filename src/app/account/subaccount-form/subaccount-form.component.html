@@ -1,0 +1,66 @@
+<mat-toolbar>
+    <span>{{subaccountformService.form.controls['id'].value?"Editar Subcuenta":"Agregar Subcuenta"}}</span>
+    <span class="fill-remaining-space"></span>
+    <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabIndex="-1"><mat-icon>clear</mat-icon></button>
+    <!-- <span>{{subaccountService.getForm().controls['accountType.id'].value?"Modify Employee":"New Employee"}}</span> -->
+</mat-toolbar>
+<form [formGroup]="subaccountformService.form" class="normal-form" (submit)="onSubmit()">
+    <mat-grid-list cols="2" rowHeight="300px">
+        <mat-grid-tile>
+            <div class="controles-container">
+                <!-- <mat-form-field>
+                    <input type="text" formGroupName="accountType" placeholder="Full Name*">
+                </mat-form-field> -->
+                <mat-form-field>
+                    <input type="text" formControlName="nameAccount" matInput placeholder="Nombre de la Subcuenta*">
+                </mat-form-field>
+                <mat-form-field>
+                    <input formControlName="accountNumber" matInput placeholder="Numero designado">
+                </mat-form-field>
+                <mat-form-field>
+                    <input formControlName="balance" matInput placeholder="Balance*">
+                </mat-form-field>
+                <!-- <mat-form-field>
+                    <input formControlName="status" matInput placeholder="Estado">
+                </mat-form-field> -->
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <div class="controles-container">
+                <!-- <div class="add-bottom-padding ">
+                    <mat-radio-group formControlName="gender ">
+                        <mat-radio-button value="1 ">Male</mat-radio-button>
+                        <mat-radio-button value="2 ">Female</mat-radio-button>
+                        <mat-radio-button value="3 ">Other</mat-radio-button>
+                    </mat-radio-group>
+                </div> -->
+                <!-- <mat-form-field>
+                    <mat-select formControlName="department " placeholder="Department ">
+                        <mat-option>None</mat-option>
+                        <ng-container *ngFor="let department of departmentService.array ">
+                            <mat-option value="{{department.$key}} ">{{department.code}}-{{department.name}}</mat-option>
+                        </ng-container>
+                    </mat-select>
+                </mat-form-field> -->
+                <!-- <mat-form-field>
+                    <input formControlName="hireDate " matInput [matDatepicker]="picker " placeholder="Hire Date ">
+                    <mat-datepicker-toggle matSuffix [for]="picker "></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field> -->
+                <mat-form-field>
+                    <input type="text" (click)="cargardatos()" (focus)="filterBank()" matInput placeholder="Cuenta Contable" formControlName="accountType" [matAutocomplete]="auto">
+                    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">{{option.name}}</mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+                <div class="add-bottom-padding">
+                    <mat-checkbox formControlName="status">Permanent Employee</mat-checkbox>
+                </div>
+                <div class="button-row">
+                    <button mat-raised-button color="primary" type="submit" [disabled]="subaccountformService.form.invalid">Submit</button>
+                    <button mat-raised-button color="warn" (click)="onClear()">Clear</button>
+                </div>
+            </div>
+        </mat-grid-tile>
+    </mat-grid-list>
+</form>

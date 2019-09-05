@@ -1,0 +1,81 @@
+<mat-card>
+    <mat-card-header>
+        <h1> Cuenta de Bancos</h1>
+    </mat-card-header>
+    <mat-grid-list cols="4" rowHeight="100px" style="padding: 10px">
+        <mat-grid-tile [colspan]="3" [rowspan]="1">
+            <button mat-button (click)="onCreate()" color="primary">
+            <mat-icon>add</mat-icon>Create
+        </button>
+            <div class="search-div">
+                <mat-form-field class="search-form-field" floatLabel="never">
+                    <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()">
+                    <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
+                    <mat-icon>close</mat-icon></button>
+                </mat-form-field>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile class="contenido-center" [colspan]="1" [rowspan]="1">
+            <h3>Balance Neto <span class="badge badge-secondary">{{totalBalance | currency}}</span></h3>
+        </mat-grid-tile>
+    </mat-grid-list>
+
+    <div class="mat-elevation-z8">
+        <mat-table [dataSource]="listData" matSort>
+            <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.id}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="subAccount">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Cuenta Contable</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.subAccount.accountNumber}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="nameBank">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Compañia</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.nameBank}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="accountNumber">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Cuenta</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.accountNumber}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="balance">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Balance</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.balance | currency}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="balanceToday">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Proyeccion</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.balanceToday | currency }}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="acciones">
+                <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <button mat-icon-button matTooltip="Ver todas las facturas" (click)="onCustomerInvoiceList(element.id)">
+                    
+                    <mat-icon aria-label="Example icon-button with a heart icon">zoom_in</mat-icon>
+                  </button>
+                    <button mat-icon-button matTooltip="contabilizar" (click)="onAssess(element.id)">
+                      <mat-icon aria-label="Example icon-button with a heart icon">payment</mat-icon>
+                    </button>
+                    <!-- <button mat-button (click)="onCustomerInvoiceList(element.id)">ver facturas</button> -->
+                    <!-- <button mat-button (click)="onAssess(element.id)">contabilizar</button> -->
+                    <button mat-button matTooltip="editar" (click)="onEdit(element)"><mat-icon>launch</mat-icon></button>
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="loading">
+                <mat-footer-cell *matFooterCellDef colspan="6">
+                    Loading data...
+                </mat-footer-cell>
+            </ng-container>
+            <ng-container matColumnDef="noData">
+                <mat-footer-cell *matFooterCellDef colspan="6">
+                    No data.
+                </mat-footer-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':listData!=null}"></mat-footer-row>
+            <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(listData!=null && listData.length==0)}"></mat-footer-row>
+        </mat-table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="25" showFirstLastButtons></mat-paginator>
+    </div>
+</mat-card>
